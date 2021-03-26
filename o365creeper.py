@@ -26,7 +26,7 @@ parser.add_argument('-f', '--file', help='List of email addresses to validate, o
 parser.add_argument('-o', '--output', help='Output valid email addresses to the specified file.')
 args = parser.parse_args()
 
-url = 'https://login.microsoftonline.com/common/GetCredentialType'
+url = 'https://login.microsoftonline.us/common/GetCredentialType'
 
 def main():
 
@@ -42,14 +42,14 @@ def main():
                 valid = re.search('"IfExistsResult":0,', response)
                 invalid = re.search('"IfExistsResult":1,', response)
                 if invalid:
-                    print '%s - INVALID' % email
+                    print('%s - INVALID' % email)
                 if valid and args.output is not None:
-                    print '%s - VALID' % email
-                    with open(args.output, 'a+') as output_file: 
+                    print('%s - VALID' % email)
+                    with open(args.output, 'a+') as output_file:
                         output_file.write(email+'\n')
                 else:
                     if valid:
-                        print '%s - VALID' % email
+                        print('%s - VALID' % email)
 
     elif args.email is not None:
         email = args.email
@@ -59,13 +59,13 @@ def main():
         valid = re.search('"IfExistsResult":0', response)
         invalid = re.search('"IfExistsResult":1', response)
         if invalid:
-            print '%s - INVALID' % email
+            print('%s - INVALID' % email)
         if valid and args.output is not None:
-            print '%s - VALID' % email
+            print('%s - VALID' % email)
             with open(args.output, 'w') as output_file:
                 output_file.write(email+'\n')
         else:
             if valid:
-                print '%s - VALID' % email
+                print('%s - VALID' % email)
 if __name__ == "__main__":
     main()
